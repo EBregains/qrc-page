@@ -1,0 +1,194 @@
+---
+import '@/styles/global.css'
+import Layout from '@/layouts/Layout.astro';
+import Image from 'astro/components/Image.astro';
+import desktopBackground from '@/images/desktop-background.webp';
+import MarcasScroll from '@/components/MarcasScroll.astro';
+import UltimasNovedades from '@/components/inicio/UltimasNovedades.astro';
+import DeporteYAmigos from '@/components/inicio/DeporteYAmigos.astro';
+---
+
+<Layout title="Inicio">
+	<main>
+    <div class="container">
+      <Image class="background" src={desktopBackground} alt="Landing backgroun picture"/>
+    </div>
+    <section class="landing">
+      <div class="fixed">
+        <div class="querandi-title">
+          <h1>QUERANDI</h1>
+          <h2>RUGBY</h2>
+          <h2>CLUB</h2>
+        </div>
+        <div class="call-to-action-container">
+            <div>
+              <a href="/contacto">COMO LLEGAR</a>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 115.4 122.88" fill="white"><title>up-arrow</title><path d="M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z"/></svg>
+            </div>
+            <div>
+              <p class="italic text-stroke font-normal">VENI A CONOCER</p>
+              <p class="italic font-md text-blue">NUESTRA CASA</p>
+            </div>
+        </div>
+      </div>
+    </section>
+    <div class="z10">
+      <MarcasScroll/>
+      <DeporteYAmigos/>
+      <UltimasNovedades/>
+    </div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		width: 100%;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 2.0rem;
+		line-height: 1.6;
+	}
+  h1{
+    font-family: "Kanit", monospace;
+    font-size: 7.2rem;
+    font-weight: bold;
+    margin-block: 0px;
+    line-height: 7.2rem;
+  }
+
+  h2{
+    font-family: "Kanit", monospace;
+    font-size: 6.4rem;
+    font-weight: bold;
+    margin-block: 0px;
+    line-height: 6.4rem;
+  }
+  p {
+    color: inherit;
+    line-height: 26px;
+    margin: 0;
+  }
+  p.text-blue {
+    color: #154984;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    filter: saturate(75%) brightness(80%);
+    /* -webkit-mask-image: linear-gradient(to left, black 25%, transparent 80%); */
+    mask-image: linear-gradient(to right, rgb(0,0,0,.5) 0, black 60%);
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+    animation: linear forwards turn-black;
+    animation-timeline: scroll(root block);
+    animation-range: 20vh 80vh;
+  }
+  .landing {
+    width: 100%;
+    height: 55vh;
+    max-width: 1000px;
+    margin-inline: auto;
+    margin-top: 6rem;
+    margin-bottom: 12rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .fixed {
+    position: fixed;
+    z-index: 0;
+  }
+  .call-to-action-container {
+    display: flex;
+    background: white;
+    margin-top: 24px;
+    color: #1e1e1e;
+    box-shadow: 0 4px 12px 12px rgb(0, 0, 0, 0.2);
+    width: max-content;
+    z-index: 0;
+  }
+  .call-to-action-container div:nth-child(1) {
+    width: 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: white;
+    background: #154984;
+    overflow: hidden;
+    transition: width .3s ease-in-out;
+
+    font-size: 4.5rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .call-to-action-container:is(:not(:hover)) div:nth-child(1){
+    animation: box-peak ease-in-out infinite 5s;
+    animation-delay: 2s;
+  } 
+  .call-to-action-container:hover div:nth-child(1){
+    animation: box-open ease-in-out forwards .5s;
+  }
+  .call-to-action-container div:nth-child(1) a{
+    text-decoration: none;
+    color: white;
+    margin-left: 4rem;
+    font-family: "Kanit", monospace;
+  }
+  .call-to-action-container div:nth-child(1) a:hover{
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 1px;
+  }
+  .call-to-action-container div:nth-child(1) svg{
+    height: 32px;
+    width: 32px;
+    fill: white;
+    transform: rotate(90deg);
+  }
+  
+  .call-to-action-container div:nth-child(2) {
+    width: max-content;
+    text-align: center;
+
+    padding-block: 24px;
+    padding-inline: 8rem;
+
+  }
+  @keyframes box-peak {
+    10% {
+      width: 24px;
+    }
+    60% {
+      width: 24px;
+    }
+    70% {
+      width: 0px;
+    }    
+  }
+  @keyframes box-open {
+    from {
+      width: 24px;
+    }
+    to {
+      width: 430px;
+    }
+    
+  }
+  @keyframes turn-black {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: .05;
+  }
+}
+</style>

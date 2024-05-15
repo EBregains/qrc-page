@@ -1,0 +1,67 @@
+---
+---
+ <section>
+  <img src='./images/image1.webp' alt="" class="image1"/>
+  <img src='./images/image2.webp' alt="" class="image2"/>
+  <img src='./images/image3.webp' alt="" class="image3"/>
+  <img src='./images/image4.webp' alt="" class="image4"/>
+  <img src='./images/image5.webp' alt="" class="image5"/>
+ </section>
+
+ <style>
+  section {
+    position: relative;
+    height: 700px;
+    width: 100%;
+    margin-top: -1px;
+    background: white;
+    z-index: 5;
+
+  }
+  img {
+    width: 160px;
+    visibility: hidden;
+    height: 160px;
+    border-radius: 50%;
+    animation: show-it linear forwards;
+    animation-timeline: view();
+    animation-range: cover 25% cover 28%;
+  }
+
+  .image1 {
+    position: absolute;
+    top: 4%;
+    left: 16%;
+    transform: rotate(-15deg);
+  }
+  .image2 {
+    position: absolute;
+    bottom: 2%;
+    left: 8%;
+    transform: rotate(-9deg);
+  }
+  .image3 {
+    position: absolute;
+    bottom: 1%;
+    right: 20%;
+    transform: rotate(9deg);
+  }
+  .image4 {
+    position: absolute;
+    top: 40%;
+    right: 8%;
+    transform: rotate(2deg);
+  }
+  .image5 {
+    position: absolute;
+    top: 2%;
+    right: 16%;
+    transform: rotate(2deg);
+  }
+
+  @keyframes show-it {
+    to {
+      visibility: visible;
+    }
+  }
+ </style>

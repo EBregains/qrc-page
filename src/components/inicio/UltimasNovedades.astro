@@ -1,0 +1,200 @@
+---
+import Image from "astro/components/Image.astro"
+import Imagen from "../../images/desktop-background.webp"
+import { getCollection } from "astro:content"
+
+let noticias = await getCollection('noticias')
+---
+<section>
+  <div class="in-left">
+    <h2>Ultimas Novedades</h2>
+  </div>  
+  <div class="content-listing">
+    <ul class="content-listing__feature">
+      <a href={`/noticias/${noticias[0].slug}`} class="content-listing__link">
+        <li class="content-listing__item">
+          <div class="content-listing__item-thumb">
+            <div class=".content-listing__picture-wrapper">
+              <picture class="content-listing__picture-image">
+                <Image src={Imagen} alt="foto" class="content-listing__image" loading="eager">
+              </picture>
+            </div>
+            <h4 class="content-listing__meta-title">{noticias[0].data.title}</h4>
+            <p class="content-listing__meta-subtitle">{noticias[0].data.tags}</p>
+          </div>
+        </li>
+      </a>
+    </ul>
+    <ul class="content-listing__list">
+       {noticias.slice(1,6).map((noticia) => (
+        <a href={`/noticias/${noticia.slug}`} class="content-listing__link">
+          <li class="content-listing__item">
+            <div class="content-listing__item-thumb">
+              <div class=".content-listing__picture-wrapper">
+                <picture class="content-listing__picture-image">
+                  <img src={noticia.data.image.url} alt={noticia.data.image.alt} class="content-listing__image">
+                </picture>
+              </div>
+              <h4 class="content-listing__meta-title">{noticia.data.title}</h4>
+              <p class="content-listing__meta-subtitle">{noticia.data.tags}</p>
+            </div>
+          </li>
+        </a>
+      ))}
+    </ul>
+  </div>
+  <div class="button-wrapper">
+    <a href="/noticias" class="button secondary">IR A NOTICIAS</a>
+  </div>
+</section>
+
+<style>
+  section > * {
+    color: #1e1e1e;
+  }
+  h2 {
+    font-size: 60px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  section {
+    margin-top: -2px;
+    padding-inline: 3.6rem;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background: white;
+    z-index: 20;
+  }
+  .in-left {
+    margin-right: 10% ;
+    text-align: end;
+    overflow: hidden;
+    animation: linear forwards in-left;
+    animation-timeline: view();
+    animation-range: entry 0% cover 60%;
+    animation-timing-function: ease-in-out
+    opacity: 0;
+  }
+  
+  .content-listing {
+    position: relative;
+    display: flex;
+    gap: 2rem;
+    padding-top: 4.8rem;
+    z-index: 10;
+  }
+  
+  .content-listing__item {
+    overflow: hidden;
+    flex-direction: column;
+    color: #1e1e1e;
+  }
+
+  .content-listing__feature {
+    flex: 1;
+    padding-bottom: 2rem;
+  }
+
+  .content-listing__feature .content-listing__item {
+    width: 100%;
+  }
+
+  .content-listing__link {
+    text-decoration: none;
+    text-underline-offset: .3rem;
+    transition: -webkit-text-decoration .4s ease-in-out;
+    transition: text-decoration .4s ease-in-out;
+    transition: text-decoration .4s ease-in-out, -webkit-text-decoration .4s ease-in-out;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+
+  }
+
+  @media (min-width: 840px) {
+    .content-listing__link:hover .content-listing__meta-title {
+        text-decoration: underline;
+        text-decoration-thickness: .1rem;
+        text-decoration-color: #154984;
+    }
+  }
+
+  .content-listing__picture-wrapper {
+    position: relative;
+    padding-top: 75%;
+  }
+
+  .content-listing__image {
+    display: block;
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: transform .6s ease-in-out, filter .6s ease-in-out;
+  }
+
+  .content-listing__meta-title {
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+    margin: 1.6rem 0 .8rem;
+    text-transform: uppercase;
+    max-height: 8.9rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .content-listing__meta-date, .content-listing__meta-subtitle {
+    position: relative;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+  }
+
+  .content-listing__list {
+    position: relative;
+    flex: 1;
+    display: flex;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .content-listing__list .content-listing__link {
+      width: calc(50% - 1rem);
+  }
+
+  @media (min-width: 640px) {
+    @supports (position:sticky) {
+      .content-listing:not(.is-rail) .content-listing__feature {
+        position: sticky;
+        align-self: flex-start;
+        top: 2.4rem;
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .content-listing {
+        padding-top: 3.2rem;
+        flex-direction: column;
+    }
+  }
+
+  @keyframes in-left {
+    from {
+      transform: translateX(10%);
+      opacity: 0;
+    } to {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    
+  }
+
+</style>

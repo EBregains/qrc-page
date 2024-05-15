@@ -1,0 +1,179 @@
+---
+import '@/styles/global.css'
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import desktopBackground from '@/images/desktop-background.webp'
+import Image from 'astro/components/Image.astro';
+
+const noticias = await getCollection('noticias');
+---
+
+<Layout title="Noticias">
+	<main>
+    <div class="noticias__background">
+
+    </div>
+    <section class="noticias">
+      <h1>NOTICIAS</h1>
+      <div class="noticias__filters">
+        <a href="/#" class="button secondary font-normal">TODO</a>
+        <a href="/#" class="button secondary font-normal">FILTROS</a>
+      </div>
+      <div class="noticias__grid">
+        <article class="noticias__featured">
+          <a href={`/noticias/${noticias[0].slug}`} class="content-listing__link">
+            <div class="content-listing__item-thumb">
+              <div class=".content-listing__picture-wrapper">
+                <picture class="content-listing__picture-image">
+                  <Image src={desktopBackground} alt="foto" class="content-listing__image">
+                </picture>
+              </div>
+              <h4 class="content-listing__meta-title">{noticias[0].data.title}</h4>
+              <p class="content-listing__meta-subtitle">{noticias[0].data.tags}</p>
+            </div>
+          </a>
+        </article>
+        {noticias.map((noticia) => (
+          <article class="noticias__item">
+            <a href={`/noticias/${noticia.slug}`} class="content-listing__link">
+              <div class="content-listing__item-thumb">
+                <div class=".content-listing__picture-wrapper">
+                  <picture class="content-listing__picture-image">
+                    <img src={noticia.data.image.url} alt="foto" class="content-listing__image">
+                  </picture>
+                </div>
+                <h4 class="content-listing__meta-title">{noticia.data.title}</h4>
+                <p class="content-listing__meta-subtitle">{noticia.data.tags}</p>
+              </div>
+            </a>
+          </article>
+          ))} 
+      </div>
+    </section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+    padding-block: 4rem;
+		padding-inline: 4rem;
+		width: 100%;
+		max-width: calc(100% - 2rem);
+    background: white;
+    margin-top: -21px;
+		color: #1e1e1e;
+		font-size: 2.0rem;
+		line-height: 1.6;
+	}
+  .noticias__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #154984;
+    z-index: -1;
+    animation: linear forwards turn-black;
+    animation-timeline: scroll();
+    animation-range: 30vh 80vh;
+  }
+  .noticias__filters {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .noticias__grid {
+    width: 100%;
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.6rem;
+  }
+  .noticias__featured {
+    grid-column: 1/3;
+    grid-row: 1/3;
+  }
+
+  .content-listing__link {
+    text-decoration: none;
+    text-underline-offset: .3rem;
+    transition: -webkit-text-decoration .4s ease-in-out;
+    transition: text-decoration .4s ease-in-out;
+    transition: text-decoration .4s ease-in-out, -webkit-text-decoration .4s ease-in-out;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+
+  }
+
+  @media (min-width: 840px) {
+    .content-listing__link:hover .content-listing__meta-title {
+        text-decoration: underline;
+        text-decoration-thickness: .1rem;
+        text-decoration-color: #154984;
+    }
+  }
+
+  .content-listing__picture-wrapper {
+    position: relative;
+    padding-top: 75%;
+  }
+
+  .content-listing__image {
+    aspect-ratio: 1/1;
+    display: block;
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: transform .6s ease-in-out, filter .6s ease-in-out;
+  }
+
+  .content-listing__meta-title {
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+    margin: 1.6rem 0 .8rem;
+    text-transform: uppercase;
+    max-height: 8.9rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .content-listing__meta-date, .content-listing__meta-subtitle {
+    position: relative;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+  }
+  @media (max-width: 1000px) {
+    .noticias__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .noticias__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  h1{
+    font-family: "Kanit", monospace;
+    font-size: 7.2rem;
+    font-weight: bold;
+    margin-block: 2rem;
+    line-height: 7.2rem;
+  }
+  @keyframes turn-black {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: .05;
+  }
+}
+</style>

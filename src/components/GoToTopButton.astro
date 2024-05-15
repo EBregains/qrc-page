@@ -1,0 +1,83 @@
+---
+---
+
+<button type="button" id="go-up" class="go-up">
+  <div class="go-up__wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 115.4 122.88"><title>up-arrow</title><path d="M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z"/></svg>
+    <p class="go-up__text font-md">Ir arriba</p>
+  </div>
+</button>
+
+<script>
+  document.querySelector("#go-up")?.addEventListener("click", () => {
+    scroll(0,0);
+  })
+</script>
+
+<style>
+  svg {
+    height: 32px;
+    width: 32px;
+    fill: white;
+  }
+
+
+  .go-up{
+    visibility: hidden;
+    cursor: pointer;
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    overflow: hidden;
+    bottom: 0;
+    right: calc(50% - 28px);
+    border: 3px solid #154984;
+    background: #154984;
+    padding: 10px;
+    z-index: 20;
+    border-radius: 8px 8px 0 0;
+    animation: show-up forwards ease-in-out;
+    animation-timeline: scroll(root);
+    animation-range: 50vh 70vh;
+  }
+
+  .go-up:hover {
+    animation: forwards extend-hover ease-in-out .25s;
+    animation-delay: 0;
+  }
+
+  .go-up__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: max-content;
+  }
+
+  .go-up__text {
+    color: white;
+    margin: 0;
+    line-height: 1.1;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+  }
+
+  @keyframes show-up {
+    to {
+      visibility: visible;
+    }
+  }
+
+  @keyframes extend-hover {
+    from {
+      visibility: visible;
+    }
+    to {
+      visibility: visible;
+      background-color: #154984;
+      height: 222px;
+    }
+  }
+</style>
